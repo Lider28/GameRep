@@ -32,28 +32,29 @@ public class NoiseMap : MonoBehaviour
     {
         GenerateMap();
     }
-    
-    private void Update()
+
+    public void RebuildMap()
     {
-        if (Input.GetKey(KeyCode.R))
+        CleanMap();
+        GenerateMap();
+    }
+
+    private void CleanMap()
+    {
+        foreach (GameObject spawnedTile in noiseMapRenderer.spawnedTiles)
         {
-            foreach (GameObject spawnedTile in noiseMapRenderer.spawnedTiles)
+            if (spawnedTile != null)
             {
-                if (spawnedTile != null)
-                {
-                    Destroy(spawnedTile.gameObject);
-                }
+                Destroy(spawnedTile.gameObject);
             }
-            foreach (GameObject spawnedObject in noiseMapRenderer.spawnedObjectsList)
-            {
-                if (spawnedObject != null)
-                {
-                    Destroy(spawnedObject.gameObject);
-                }
-            }
-            GenerateMap();
         }
-            
+        foreach (GameObject spawnedObject in noiseMapRenderer.spawnedObjectsList)
+        {
+            if (spawnedObject != null)
+            {
+                Destroy(spawnedObject.gameObject);
+            }
+        }
     }
 
     private void GenerateMap()
